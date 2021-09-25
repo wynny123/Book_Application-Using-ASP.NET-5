@@ -28,6 +28,13 @@ namespace Book_Application
         {
 
             services.AddControllers();
+
+            services.AddCors(o => {
+                o.AddPolicy("AllowAll", builder =>
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Book_Application", Version = "v1" });
@@ -45,6 +52,7 @@ namespace Book_Application
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
 
             app.UseRouting();
 
